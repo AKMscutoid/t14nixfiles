@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
-
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -95,11 +95,35 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # dconf
+  programs.dconf.enable = true;
+
+  # File chooser
+  programs.niri.useNautilus = true;
+
+  # File chooser fix 2
+  environment.extraInit = ''
+  export XDG_DATA_DIRS="$XDG_DATA_DIRS:${pkgs.gtk4}/share/gsettings-schemas/${pkgs.gtk4.name}"
+'';
+  # XDG
+  environment.sessionVariables = rec {
+    XDG_CACHE_HOME  = "$HOME/.cache";
+    XDG_CONFIG_HOME = "$HOME/.config";
+    XDG_DATA_HOME   = "$HOME/.local/share";
+    XDG_STATE_HOME  = "$HOME/.local/state";
+
+    # Not officially in the specification
+    XDG_BIN_HOME    = "$HOME/.local/bin";
+    PATH = [ 
+      "${XDG_BIN_HOME}"
+    ];
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-   mg kdePackages.konsole kdePackages.okular home-manager gnupg guile firefox thunderbird caja timeshift qutebrowser gnome-disk-utility lynx tor-browser pass gopass aerc gitFull kdePackages.kdevelop
-canto-curses joplin-desktop hyprland i3 transmission_4-qt fractal ungoogled-chromium libreoffice lxc tor vlc calendar-cli gnome-multi-writer libvirt qemu stratovirt s-tui
+   mg kdePackages.konsole kdePackages.okular home-manager gnupg python3 guile haunt firefox thunderbird caja timeshift qutebrowser gnome-disk-utility lynx tor-browser pass gopass aerc gitFull kdePackages.kdevelop
+canto-curses joplin-desktop hyprland i3 transmission_4-qt fractal gsettings-desktop-schemas xdg-desktop-portal-shana gtk4 glib wrapGAppsHook4 ungoogled-chromium libreoffice lxc tor vlc calendar-cli gnome-multi-writer libvirt qemu stratovirt s-tui
 # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   # wget
   ];
