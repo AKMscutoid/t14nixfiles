@@ -123,7 +123,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
    mg kdePackages.konsole kdePackages.okular home-manager gnupg python3 guile haunt firefox thunderbird caja timeshift qutebrowser gnome-disk-utility lynx tor-browser pass gopass aerc gitFull kdePackages.kdevelop kdePackages.kdeconnect-kde
-canto-curses joplin-desktop hyprland transmission_4-qt fractal gsettings-desktop-schemas xdg-desktop-portal-shana android-tools waydroid gtk4 glib wrapGAppsHook4 ungoogled-chromium libreoffice lxc tor vlc calendar-cli gnome-multi-writer libvirt virt-manager qemu stratovirt s-tui
+canto-curses joplin-desktop hyprland transmission_4-qt fractal gsettings-desktop-schemas xdg-desktop-portal-shana android-tools waydroid util-linux gtk4 glib wrapGAppsHook4 ungoogled-chromium libreoffice lxc tor vlc calendar-cli gnome-multi-writer libvirt virt-manager qemu stratovirt s-tui
 # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   # wget
   ];
